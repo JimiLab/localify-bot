@@ -26,7 +26,7 @@ async def send_message(request: MessageRequest):
     return {"status": "sent"}
 
 
-@app.post("/health-check")
+@app.get("/health-check")
 async def send_message():
     return {"status": "ok!"}
 
