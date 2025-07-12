@@ -26,6 +26,11 @@ async def send_message(request: MessageRequest):
     return {"status": "sent"}
 
 
+@app.post("/health-check")
+async def send_message():
+    return {"status": "ok!"}
+
+
 async def serve_api():
     config = uvicorn.Config(app, host=API_HOST, port=API_PORT, log_level="info")
     server = uvicorn.Server(config)
