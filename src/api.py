@@ -17,12 +17,12 @@ class MessageRequest(BaseModel):
 
 @app.post("/artist-city")
 async def send_message(request: MessageRequest):
-    print(request)
     await bot.send_embed(
         title="Artist City Suggestion",
         desc=f"User {request.userName} has suggested that {request.artistName} is from {request.cityName}.",
         image=request.artistImage
     )
+    print(f"Send Artist City: {request}")
     return {"status": "sent"}
 
 
