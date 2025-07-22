@@ -1,4 +1,6 @@
 import asyncio
+
+import discord
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from commands import bot
@@ -13,6 +15,7 @@ class MessageRequest(BaseModel):
     artistName: str
     artistImage: str
     cityName: str
+    isPreApproved: bool
 
 
 @app.post("/artist-city")
@@ -20,7 +23,8 @@ async def send_message(request: MessageRequest):
     await bot.send_embed(
         title="Artist City Suggestion",
         desc=f"User {request.userName} has suggested that {request.artistName} is from {request.cityName}.",
-        image=request.artistImage
+        image=request.artistImage,
+        color=discord.Color.green() if request.isPreApproved else discord.Color.red()
     )
     print(f"Send Artist City: {request}")
     return {"status": "sent"}

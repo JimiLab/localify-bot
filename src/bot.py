@@ -24,12 +24,13 @@ class LocalifyBot(commands.Bot):
     async def send_embed(self,
                          title: str,
                          desc: str,
-                         image: str
+                         image: str,
+                         color: discord.Color
                          ):
         embed = discord.Embed(
             title=title,
             description=desc,
-            color=discord.Color.pink()
+            color=color
         )
         embed.set_image(url=image)
         embed.set_author(name="Localify Dashboard", url="https://dash.localify.org/#/crowd-sourcing/artist/city")
