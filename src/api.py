@@ -43,8 +43,8 @@ async def model_trained(request: ModelTrainedRequest):
         title="Model Finished Training",
         desc=f"""A model has finished training on the JimiLab server.
 This model performed {'worse' if request.is_worse else 'better'} than the previous model, and the recommender system has {'not ' if request.is_worse else ''}been updated.
-Accuracy: {round(request.accuracy, 4)}
-Accuracy by Popularity Bucket: {list(map(lambda x: round(x, 4), request.accuracy_breakdown))}
+**Accuracy:** {round(request.accuracy, 4)}
+**Accuracy by Popularity Bucket:** {list(map(lambda x: round(x, 4), request.accuracy_breakdown))}
 """,
         color=discord.Color.red() if request.is_worse else discord.Color.green()
     )
