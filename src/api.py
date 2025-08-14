@@ -21,6 +21,8 @@ class ArtistCityRequest(BaseModel):
 class ModelTrainedRequest(BaseModel):
     accuracy: float
     accuracy_breakdown: list[float]
+    accuracy_old: float
+    accuracy_breakdown_old: list[float]
     is_worse: bool
 
 
@@ -47,6 +49,8 @@ async def model_trained(request: ModelTrainedRequest):
 This model performed {'worse' if request.is_worse else 'better'} than the previous model, and the recommender system has {'not ' if request.is_worse else ''}been updated.
 **Accuracy:** {round(request.accuracy, 4)}
 **Accuracy by Popularity Bucket:** {list(map(lambda x: round(x, 4), request.accuracy_breakdown))}
+**Previous Accuracy:** {round(request.accuracy_old, 4)}
+**Previous Accuracy by Popularity Bucket:** {list(map(lambda x: round(x, 4), request.accuracy_breakdown_old))}
 """,
         color=discord.Color.red() if request.is_worse else discord.Color.green()
     )
