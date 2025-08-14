@@ -22,6 +22,7 @@ class LocalifyBot(commands.Bot):
         await self.tree.sync(guild=guild)
 
     async def send_embed(self,
+                         channel_id: str,
                          title: str,
                          desc: str,
                          color: discord.Color,
@@ -37,5 +38,5 @@ class LocalifyBot(commands.Bot):
             embed.set_image(url=image)
         embed.set_author(name="Localify Dashboard", url=url)
 
-        channel = self.get_channel(int(ARTIST_CITY_CHANNEL))
+        channel = self.get_channel(int(channel_id))
         await channel.send("", embed=embed)

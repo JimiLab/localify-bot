@@ -4,7 +4,7 @@ import discord
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from commands import bot
-from config import API_HOST, API_PORT, ARTIST_CITY_CHANNEL
+from config import API_HOST, API_PORT, ARTIST_CITY_CHANNEL, MODEL_TRAINED_CHANNEL
 import uvicorn
 
 app = FastAPI()
@@ -27,6 +27,7 @@ class ModelTrainedRequest(BaseModel):
 @app.post("/artist-city")
 async def artist_city(request: ArtistCityRequest):
     await bot.send_embed(
+        channel_id=ARTIST_CITY_CHANNEL,
         title="Artist City Suggestion",
         desc=f"User {request.userName} has suggested that {request.artistName} is from {request.cityName}.",
         color=discord.Color.green() if request.isPreApproved else discord.Color.red(),
@@ -40,6 +41,7 @@ async def artist_city(request: ArtistCityRequest):
 @app.post("/model-trained")
 async def model_trained(request: ModelTrainedRequest):
     await bot.send_embed(
+        channel_id=MODEL_TRAINED_CHANNEL,
         title="Model Finished Training",
         desc=f"""A model has finished training on the JimiLab server.
 This model performed {'worse' if request.is_worse else 'better'} than the previous model, and the recommender system has {'not ' if request.is_worse else ''}been updated.
